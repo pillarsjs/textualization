@@ -135,9 +135,9 @@ function translate(text,params,lang) {
         // continue...
       }
     }
-    if(!match){
-      return original;
-    }
+  }
+  if(!match){
+    return original;
   }
   
   try {
