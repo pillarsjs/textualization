@@ -15,6 +15,8 @@ module.exports = translate;
 translate.reload = reload;
 translate.refresh = refresh;
 translate.load = load;
+translate.heap = heap;
+translate.cache = cache;
 
 var languages = ['en'];
 Object.defineProperty(translate,"languages",{
@@ -122,12 +124,12 @@ function translate(text,params,lang) {
   var search = '["'+text.split('.').join('"]["')+'"]';
   var match;
   try {
-    match = eval("heap["+lang+"]"+search);
+    match = eval("heap['"+lang+"']"+search);
   } catch(error) {
     for(i=0,l=languages;i<l;i++){ // Search any translation by priority order.
       lang = languages[i];
       try {
-        match = eval("heap["+lang+"]"+search);
+        match = eval("heap['"+lang+"']"+search);
         break;
       } catch(error) {
         // continue...
