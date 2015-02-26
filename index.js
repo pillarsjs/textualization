@@ -29,6 +29,8 @@ Object.defineProperty(translate,"languages",{
   }
 });
 
+translate.load('textualization',__dirname+'/languages/',function(){});
+
 function reload(){
   heap = {};
   refresh();
@@ -39,7 +41,7 @@ function refresh(){
     var id = k[i];
     var value = cache[k[i]];
     var method = typeof value === "string" ? loadTranslationsPath : loadTranslations;
-    method(id,value);
+    method(id,value,function(){});
   }
 }
 
@@ -68,11 +70,11 @@ function loadTranslation(id,lang,translation){
   var k = Object.keys(translation);
   for(var i=0,l=k.length;i<l;i++){
     if(heap[lang][id][k[i]]){
-      crier.info('heap-rewrite',{lang:lang,id:id,node:k[i]});
+      crier.info('load.rewrite',{lang:lang,id:id,node:k[i]});
     }
     heap[lang][id][k[i]]=translation[k[i]];
   }
-  crier.info('load-ok',{lang:lang,id:id,nodes:k});
+  crier.info('load.loaded',{lang:lang,id:id,nodes:k});
 }
 
 function loadTranslationsPath(id,path,callback){
@@ -106,7 +108,7 @@ function loadTranslationPath(id,path,lang,callback){
       loadTranslation(id,lang,translation);
       callback();
     } catch (error){
-      crier.error('load-error',{path:path,lang:lang,error:error});
+      crier.error('load.error',{id:id,path:path,lang:lang,error:error});
       callback(error);
     }
   });
@@ -179,7 +181,7 @@ function translate(text,params,lang) {
     throw new Error("Invalid translation format");
 
   } catch(error){
-    crier.alert('translate-error',{node:original,params:params,error:error});
+    crier.alert('translate.error',{node:original,params:params,error:error});
     return original;
   }
 }
