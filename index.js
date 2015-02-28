@@ -4,7 +4,7 @@
 var fs = require('fs');
 var jshint = require('jshint').JSHINT;
 var crier = require('crier').addGroup('textualization');
-var Procedure = require('procedure');
+var paths = require('path');
 require('string.format');
 
 var heap = {};
@@ -16,9 +16,8 @@ translate.reload = reload;
 translate.refresh = refresh;
 translate.load = load;
 translate.heap = heap;
-translate.cache = cache;
 
-var languages = ['en'];
+var languages = [];
 Object.defineProperty(translate,"languages",{
   enumerable : true,
   get : function(){return languages;},
@@ -29,74 +28,52 @@ Object.defineProperty(translate,"languages",{
   }
 });
 
-translate.load('textualization',__dirname+'/languages/',function(){});
+translate.load('textualization',paths.join(__dirname,'languages'));
 
 function reload(){
-  heap = {};
-  refresh();
+  refresh(true);
 }
 
-function refresh(){
+function refresh(reload){
   for(var i=0,k=Object.keys(cache),l=k.length;i<l;i++){
-    var id = k[i];
-    var value = cache[k[i]];
-    var method = typeof value === "string" ? loadTranslationsPath : loadTranslations;
-    method(id,value,function(){});
+    loadTranslationsPath(k[i],cache[k[i]],reload);
   }
 }
 
-function load(a,b,c){
-  var args = Array.prototype.slice.call(arguments);
-  if(args.length === 2){
-    return loadTranslations(a,b);
-  } else if(args.length === 3){
-    return loadTranslationsPath(a,b,c);
-  }
+function load(id,translations,lang){
+  var method = typeof translations === "string" ? loadTranslationsPath : loadTranslations;
+  method(id,translations,lang);
 }
 
-function loadTranslations(id,translations){
-  cache[id]=translations;
-  for(var i=0,l=languages.length;i<l;i++){
-    var lang = languages[i];
-    if(translations[lang] && (!heap[lang] || !heap[lang][id])){
-      loadTranslation(id,lang,translations[lang]);
+function loadTranslations(id,translations,lang){
+  heap[id] = heap[id] || {};
+  heap[id][lang] = translations;
+  crier.info('load.loaded',{lang:lang,id:id,nodes:Object.keys(translations)});
+}
+
+function loadTranslationsPath(id,path,lang,reload){
+  cache[id] = path;
+  var langs = languages;
+  if(Array.isArray(lang)){
+    langs = langs.concat(lang);
+  } else if (typeof lang === 'string') {
+    langs = langs.concat([lang]);
+  }
+  for(var i=0,l=langs.length;i<l;i++){
+    lang = langs[i];
+    if(!reload && heap[id] && heap[id][lang]){
+      break;
     }
-  }
-}
-
-function loadTranslation(id,lang,translation){
-  heap[lang] = heap[lang] || {};
-  heap[lang][id] = heap[lang][id] || {};
-  var k = Object.keys(translation);
-  for(var i=0,l=k.length;i<l;i++){
-    if(heap[lang][id][k[i]]){
-      crier.info('load.rewrite',{lang:lang,id:id,node:k[i]});
-    }
-    heap[lang][id][k[i]]=translation[k[i]];
-  }
-  crier.info('load.loaded',{lang:lang,id:id,nodes:k});
-}
-
-function loadTranslationsPath(id,path,callback){
-  cache[id]=path;
-  var procedure = new Procedure();
-  for(var i=0,l=languages.length;i<l;i++){
-    var lang = languages[i];
-    if(!heap[lang] || !heap[lang][id]){
-      procedure.add(loadTranslationPath.bind(null),id,path,lang);
-    }
-  }
-  procedure.race().launch(callback);
-}
-
-function loadTranslationPath(id,path,lang,callback){
-  fs.readFile(path+'/'+lang+'.js',{encoding:'utf8'},function(error,translation){
+    var translations;
     try {
-      if(error){
-        throw error;
-      }
-      translation = "(function(){var textualization = {};"+translation+"return textualization;})();";
-      if(!jshint(translation)){
+      translations = fs.readFileSync(paths.join(path,lang+'.js'),{encoding:'utf8'});
+    } catch (error) {
+      break;
+    }
+    
+    try {
+      translations = "(function(){var textualization = {};"+translations+"return textualization;})();";
+      if(!jshint(translations)){
         var checkfail = jshint.data().errors;
         var jsHintError = new Error("Sheet sintax error");
         for(var e in checkfail){ // <---- array or object?
@@ -104,14 +81,12 @@ function loadTranslationPath(id,path,lang,callback){
         }
         throw jsHintError;
       }
-      translation = eval(translation) || {};
-      loadTranslation(id,lang,translation);
-      callback();
+      translations = eval(translations) || {};
+      loadTranslations(id,translations,lang);
     } catch (error){
       crier.error('load.error',{id:id,path:path,lang:lang,error:error});
-      callback(error);
     }
-  });
+  }
 }
 
 function translate(text,params,lang) {
@@ -121,21 +96,32 @@ function translate(text,params,lang) {
   lang = lang || languages[0];
   text = text || "";
   var original = text;
-  var func,i,k,l;
 
-  var search = '["'+text.split('.').join('"]["')+'"]';
+  var node = text.split('.');
+  var id =  node.shift();
+
+  if(!heap[id] || Object.keys(heap[id]).length===0){return original;}
+
+  var func,i,k,l;
+  var search = 'heap["'+[id,lang].concat(node).join('"]["')+'"]';
   var match;
   try {
-    match = eval("heap['"+lang+"']"+search);
+    match = eval(search);
   } catch(error) {
-    for(i=0,l=languages;i<l;i++){ // Search any translation by priority order.
-      lang = languages[i];
+    for(i=1,l=languages.length;i<l;i++){ // Search any translation by priority order.
+      search = 'heap["'+[id,languages[i]].concat(node).join('"]["')+'"]';
       try {
-        match = eval("heap['"+lang+"']"+search);
+        match = eval(search);
         break;
       } catch(error) {
         // continue...
       }
+    }
+    search = 'heap["'+[id,Object.keys(heap[id])[0]].concat(node).join('"]["')+'"]';
+    try {
+      match = eval(search);
+    } catch(error) {
+      // continue...
     }
   }
   if(!match){
