@@ -22,9 +22,9 @@ Object.defineProperty(translate,"languages",{
   enumerable : true,
   get : function(){return languages;},
   set : function(set){
-    crier.info('languages',{languages:set});
     languages = set;
     refresh();
+    crier.info('languages',{languages:set});
   }
 });
 
