@@ -35,11 +35,9 @@ textualization={
 ```
 
 **Consola**
-> />node app.js
-
-> /> Hi!!
-
-> /> Hola!!
+> node app.js
+> Hi!!
+> Hola!!
 
 
 
@@ -73,11 +71,9 @@ textualization={
 ```
 
 **Consola**
-> />node app.js
-
-> />The result of the operation 5 + 5 is 10
-
-> />El resultado de tu operación 5 + 5 es 10
+> node app.js
+> The result of the operation 5 + 5 is 10
+> El resultado de tu operación 5 + 5 es 10
 
 ###Plurales y singulares
 Textualization tiene soporte a traducción de singulares y plurales.
@@ -114,26 +110,37 @@ textualization={
 };
 ```
 
+**Consola**
+> Tienes 6 mensajes
+> Tienes un solo mensaje
+> No tienes mensajes
+
 ###Funciones de traducción directa
+**app.js**
+```javascript
+var i18n = require("textualization");
+i18n.load("i18nSample","./languages"); 
+i18n.languages = ["es","en"];
+
+console.log(i18n("i18nSample.magic",{texto:"hola"}));
+```
+
 **es.js**
 ```javascript
 textualization={
-
+	magic: "El texto {texto} al revés es: ·{params.texto.split('').reverse().join('')}·",
 };
 ```
-**es.js**
-```javascript
-textualization={
-
-};
-```
-
 **en.js**
 ```javascript
 textualization={
-
+	magic: "Text {texto} backwards is: ·{params.texto.split('').reverse().join('')}·",
 };
 ```
+
+**Consola**
+> El texto al revés es: aloh
+
 
 ##Propiedades
 ###i18n.languages
@@ -144,9 +151,12 @@ i18n.languages = ["es","en"];
 
 ##Métodos
 ###i18n.load(*node*,*path*)
-Definición del directorio de traducciones para un nodo concreto
+Definición del directorio de traducciones para un nodo concreto.
+```javascript
+i18n.load("i18nSample","./languages"); 
+```
 
 ###i18n(*node*,*params*,*language*)
-
+Método de traducción.
 
 
