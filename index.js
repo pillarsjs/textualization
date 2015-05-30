@@ -4,6 +4,9 @@
 var fs = require('fs');
 var jshint = require('jshint').JSHINT;
 var crier = require('crier').addGroup('textualization');
+crier.constructor.console.format = function(text,meta,lang){
+  return translate(text,meta,lang);
+};
 var paths = require('path');
 require('string.format');
 
@@ -134,11 +137,12 @@ function translate(text,params,lang) {
 
     } else if(Array.isArray(match)){ // Grammatical number translation
       var num;
-      if(typeof match!=="object"){
+      if(typeof params!=="object"){
         params = {$num:params};
         num = params[0];
+      } else {
+        num = params.$num;
       }
-      num = params.$num;
 
       if(num>=0){
         if(match.length==2){
