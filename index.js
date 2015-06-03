@@ -1,6 +1,12 @@
 /* jslint node: true */
 "use strict";
 
+global.modulesCache = global.modulesCache || {};
+if(global.modulesCache['textualization']){
+  module.exports = global.modulesCache['textualization'];
+  return;
+}
+
 var fs = require('fs');
 var jshint = require('jshint').JSHINT;
 var crier = require('crier').addGroup('textualization');
@@ -13,7 +19,7 @@ require('string.format');
 var heap = {};
 var cache = {};
 
-module.exports = translate;
+module.exports = global.modulesCache['textualization'] = translate;
 
 translate.reload = reload;
 translate.refresh = refresh;
