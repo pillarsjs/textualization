@@ -1,7 +1,43 @@
 # Textualization
-Sistema de internacionalización en dot notation. Permite la internacionalización del codigo JS.
 
-Las traducciones se establecen de forma independiente del lenguaje de programación, posibilitando un sólo código fuente en JS, y tantas hojas de traducción como idiomas existan.
+![license](https://img.shields.io/badge/license-MIT-blue.svg ) [![Build Status](https://img.shields.io/travis/bifuer/textualization/master.svg)](https://travis-ci.org/bifuer/textualization) [![npm version](https://img.shields.io/npm/v/textualization.svg)](https://www.npmjs.com/package/textualization) [![Github release](https://img.shields.io/github/release/bifuer/textualization.svg)](https://github.com/bifuer/textualization) [![npm downloads](https://img.shields.io/npm/dm/textualization.svg)](https://www.npmjs.com/package/textualization)
+
+
+Sistema de internacionalización en dot notation. Permite la internacionalización de aplicaciones en JS.
+
+Los **textos de usuario** se establecen de forma independiente del lenguaje de programación, evitando el uso de *texto de usuario* y *traducciones* directamente en el código JS y sustituyendo éste por **nodos de traducción**. 
+
+**Código JS del módulo i18nSample**
+```javascript
+i18n(i18nSample.hello);
+```
+>El nodo de traducción es *hello*. El módulo a traducir es *i18nSample*. 
+
+
+Los **nodos de traducción** estarán contenidos en las **hojas de traducción** específicas para cada idioma: 
+
+**Ejemplo de hoja de traducción es.js**
+```javascript
+// Los nodos de traducción son *hello*, *sum*, *inbox* y *func*.
+textualization={
+	hello: "Hola {firstname} {lastname}!!",
+	sum: "El resultado de tu operación {operation} es {result}",
+	inbox: [
+		"No tienes mensajes", //hello
+		"Tienes un solo mensaje",
+		"Tienes {$num} mensajes"
+	],
+	func:  function(){
+		var square = param * param;
+		return "El cuadrado de {param} es " + square;
+	}
+
+};
+```
+
+>Por otro lado se declara el **directorio de traducciones** para el módulo concreto mediante el método *i18n.load()*. En un directorio de traducciones existirá una hoja de traducción por cada idioma.
+
+>Las traduciones utilizan la metodología de sustitución de cadenas de la librería [String.format](https://github.com/bifuer/String.format)
 
 ###Ejemplo básico
 **app.js**
@@ -14,69 +50,73 @@ i18n.load("i18nSample","./languages");
 //Definición de los idiomas de la aplicación
 i18n.languages = ["es","en"];
 
+var user = {
+	firstname: "Homer",
+	lastname: "Simpson"
+}
+
 //Mensaje de usuario
-console.log(i18n("i18nSample.hello",{},"en"));
-console.log(i18n("i18nSample.hello",{},"es"));
+console.log(i18n("i18nSample.hello",user, "es"));
+console.log(i18n("i18nSample.hello",user, "en"));
 
 ```
 
-**./welcome-lang/es.js** - Hoja de traducción para el español
+**./language/es.js** - Hoja de traducción para el español
 ```javascript
 textualization={
-	hello: "Hola!!"
+	hello: "Hola {firstname} {lastname}!!"
 };
 ```
 
-**./welcome-lang/en.js** - Hoja de traducción para el inglés
+**./language/en.js** - Hoja de traducción para el inglés
 ```javascript
 textualization={
-	hello: "Hi!!!"
+	hello: "Hi {firstname} {lastname}!!!"
 };
 ```
 
 **Consola**
 > node app.js
-> Hi!!
-> Hola!!
+
+> Hi Homer Simpson!!
+
+> Hola Homer Simpson!!
 
 
 
-###Traducción con soporte a parámetros 
-Permite el paso de parámetros a las traduciones.
-**app.js**
-```javascript
-var i18n = require("textualization");
-i18n.load("i18nSample","./languages"); 
-i18n.languages = ["es","en"];
+###Numerales
+Textualization tiene soporte a traducción con numerales. Para trabajar con numerales, en el nodo de traducción se declara un Array.
 
-var operation = "5 + 5";
-var result = eval(operation);
-
-console.log(i18n("i18nSample.sum",{op:operation, res:result},"en"));
-console.log(i18n("i18nSample.sum",{op:operation, res:result},"es"));
-```
+El caso de existir dos elementos en el Array, estamos hablando de **plural y singular**. Se declaran dos traducciones en un Array en el nodo de traducción, la primera para el singular y la segunda para el plural.
 
 **es.js**
 ```javascript
 textualization={
-	sum: "El resultado de tu operación {op} es {res}"
-};
+	inbox: [		
+		"Tienes un mensaje", 		// Singular
+		"Tienes {$num} mensajes"	// Plural
+		
+	]
+}
 ```
 
-**en.js**
+En el caso de más de dos elementos en el Array, se sigue la regla: 
+
 ```javascript
 textualization={
-	sum: "The result of the operation {op} is {res}"
-};
+	nodo: [
+		"No hay elementos",	
+		"Un elemento",
+		"Dos elementos", 
+		"Tres elementos",  
+		....
+		"n-2 elementos",
+		"n-1 elementos",
+		"n o más elementos"
+	],
 ```
-
-**Consola**
-> node app.js
-> The result of the operation 5 + 5 is 10
-> El resultado de tu operación 5 + 5 es 10
-
-###Plurales y singulares
-Textualization tiene soporte a traducción de singulares y plurales.
+> En el código JS se utiliza la variable reservada **$num** para indicar el numeral. 
+ 
 **app.js**
 ```javascript
 var i18n = require("textualization");
@@ -92,9 +132,9 @@ console.log(i18n("i18nSample.inbox",{$num:0},"es"));
 ```javascript
 textualization={
 	inbox: [
-		"No tienes mensajes",
-		"Tienes un solo mensaje",
-		"Tienes {$num} mensajes"
+		"No tienes mensajes", 		// 0
+		"Tienes un solo mensaje",	// 1
+		"Tienes {$num} mensajes"	// >1
 	]
 };
 ```
@@ -112,39 +152,45 @@ textualization={
 
 **Consola**
 > Tienes 6 mensajes
+
 > Tienes un solo mensaje
+
 > No tienes mensajes
 
-###Funciones de traducción directa
+
+
+###Traducción con funciones
+En los nodos de traducciones es posible utilizar funciones.
+
 **app.js**
 ```javascript
 var i18n = require("textualization");
 i18n.load("i18nSample","./languages"); 
 i18n.languages = ["es","en"];
 
-console.log(i18n("i18nSample.magic",{texto:"hola"}));
+console.log(i18n("i18nSample.func",{param:5}));
 ```
 
 **es.js**
 ```javascript
 textualization={
-	magic: "El texto {texto} al revés es: ·{params.texto.split('').reverse().join('')}·",
-};
-```
-**en.js**
-```javascript
-textualization={
-	magic: "Text {texto} backwards is: ·{params.texto.split('').reverse().join('')}·",
+	func:  function(){
+		var square = param * param;
+		return "El cuadrado de {param} es " + square;
+	}
 };
 ```
 
 **Consola**
-> El texto al revés es: aloh
+> El cuadrado de 5 es 25
 
 
 ##Propiedades
 ###i18n.languages
 Array que contiene los idiomas disponibles en la aplicación. El primero será el idioma por defecto.
+Independientemente de las hojas de traducciones que existan en el directorio de traducciones cargado mediante *i18n.load()*, sólo se cargarán las hojas de los idiomas definidos en *i18n.languages*. 
+
+Si a lo largo del código hubiera un nuevo seteo de esta propiedad se limpia la caché, y se cachean las hojas de traducciones para los nuevos idiomas declarados.
 ```javascript
 i18n.languages = ["es","en"];
 ```
@@ -156,7 +202,12 @@ Definición del directorio de traducciones para un nodo concreto.
 i18n.load("i18nSample","./languages"); 
 ```
 
-###i18n(*node*,*params*,*language*)
-Método de traducción.
+###i18n.refresh()
+Si cambia una hoja de traducción, se puede utilizar *i18n.refresh()* para recargar las traducciones.
 
+###i18n(*node*,{*params*},*language*)
+Método de traducción.
++ *node*: nodo de traducción que deberá estar definido en las hojas de traducciones. Si no estuviera definido aparecerá simplemente el nodo.
++ *params*: objeto que contiene los parámetros que se pasarán para realizar la traducción.
++ *language*: idioma al que queremos traducir el nodo. En el caso de no especificarlo se utilizará el idioma por defecto que será el primer idioma declarado en *i18n.languages*.
 
