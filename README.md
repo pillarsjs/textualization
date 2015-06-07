@@ -1,4 +1,8 @@
 # Textualization
+
+![license](https://img.shields.io/badge/license-MIT-blue.svg ) [![Build Status](https://img.shields.io/travis/bifuer/textualization/master.svg)](https://travis-ci.org/bifuer/textualization) [![npm version](https://img.shields.io/npm/v/textualization.svg)](https://www.npmjs.com/package/textualization) [![Github release](https://img.shields.io/github/release/bifuer/textualization.svg)](https://github.com/bifuer/textualization) [![npm downloads](https://img.shields.io/npm/dm/textualization.svg)](https://www.npmjs.com/package/textualization)
+
+
 Sistema de internacionalización en dot notation. Permite la internacionalización de aplicaciones en JS.
 
 Los **textos de usuario** se establecen de forma independiente del lenguaje de programación, evitando el uso de *texto de usuario* y *traducciones* directamente en el código JS y sustituyendo éste por **nodos de traducción**. 
