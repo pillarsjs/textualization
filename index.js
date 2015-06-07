@@ -57,7 +57,7 @@ function load(id,translations,lang){
 function loadTranslations(id,translations,lang){
   heap[id] = heap[id] || {};
   heap[id][lang] = translations;
-  crier.info('load.loaded',{lang:lang,id:id,nodes:Object.keys(translations)});
+  crier.info('load.loaded',{lang:lang,id:id,nodes:translations});
 }
 
 function loadTranslationsPath(id,path,lang,reload){
@@ -144,8 +144,8 @@ function translate(text,params,lang) {
     } else if(Array.isArray(match)){ // Grammatical number translation
       var num;
       if(typeof params!=="object"){
-        params = {$num:params};
-        num = params[0];
+        num = params;
+        params = {$num:num};
       } else {
         num = params.$num;
       }
