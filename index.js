@@ -60,14 +60,9 @@ function loadTranslations(id,translations,lang){
   crier.info('load.loaded',{lang:lang,id:id,nodes:translations});
 }
 
-function loadTranslationsPath(id,path,lang,reload){
+function loadTranslationsPath(id,path,reload){
   cache[id] = path;
   var langs = languages;
-  if(Array.isArray(lang)){
-    langs = langs.concat(lang);
-  } else if (typeof lang === 'string') {
-    langs = langs.concat([lang]);
-  }
   for(var i=0,l=langs.length;i<l;i++){
     lang = langs[i];
     if(!reload && heap[id] && heap[id][lang]){
@@ -91,10 +86,11 @@ function loadTranslationsPath(id,path,lang,reload){
         throw jsHintError;
       }
       translations = eval(translations) || {};
-      loadTranslations(id,translations,lang);
     } catch (error){
       crier.error('load.error',{id:id,path:path,lang:lang,error:error});
     }
+
+    loadTranslations(id,translations,lang);
   }
 }
 
