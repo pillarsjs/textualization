@@ -62,9 +62,8 @@ function loadTranslations(id,translations,lang){
 
 function loadTranslationsPath(id,path,reload){
   cache[id] = path;
-  var langs = languages;
-  for(var i=0,l=langs.length;i<l;i++){
-    lang = langs[i];
+  for(var i=0,l=languages.length;i<l;i++){
+    var lang = languages[i];
     if(!reload && heap[id] && heap[id][lang]){
       break;
     }
