@@ -79,8 +79,11 @@ function loadTranslationsPath(id,path,reload){
       if(!jshint(translations)){
         var checkfail = jshint.data().errors;
         var jsHintError = new Error("Sheet sintax error");
-        for(var e in checkfail){ // <---- array or object?
-          jsHintError.stack += (checkfail[e].reason+" in line "+checkfail[e].line+'\n');
+        jsHintError.stack = "";
+        for(var e in checkfail){ // array [{id:'(error)|(main)...',raw,code,evidence,line,character,scope:'(main)',a,b,c,d,reason},...]
+          if(checkfail[e]){ // Fix null result at end
+            jsHintError.stack += "\tLine "+checkfail[e].line+' > '+(checkfail[e].reason+'\n\t\t...'+checkfail[e].evidence+'...\n');
+          }
         }
         throw jsHintError;
       }
