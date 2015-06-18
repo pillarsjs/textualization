@@ -2,7 +2,7 @@
 
 ![license](https://img.shields.io/badge/license-MIT-blue.svg ) [![Build Status](https://img.shields.io/travis/bifuer/textualization/master.svg)](https://travis-ci.org/bifuer/textualization) [![npm version](https://img.shields.io/npm/v/textualization.svg)](https://www.npmjs.com/package/textualization) [![Github release](https://img.shields.io/github/release/bifuer/textualization.svg)](https://github.com/bifuer/textualization) [![npm downloads](https://img.shields.io/npm/dm/textualization.svg)](https://www.npmjs.com/package/textualization)
 
-Easy internacionalization (aka i18n) manager for Node.js
+Very simple internacionalization (aka i18n) manager for Node.js
 
 Textualization offers the possibility of not writing any user text message in your JS code. Allows to translate your code into any language without having to learn a complex methodology.
 
@@ -111,8 +111,6 @@ Additionally also supports .js files. In this case is possible to use functions 
 
 
 ## Nothing more, that's all. Simple?
-
----
 
 This repository is part of the [Pillars.js](https://github.com/bifuer/pillars) core libraries. Any contribution, collaboration, issues... is well come ;)
 
