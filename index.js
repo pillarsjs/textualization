@@ -75,7 +75,7 @@ function loadTranslationsPath(id,path,reload){
     }
     
     try {
-      translations = "(function(){var textualization = {};"+translations+"return textualization;})();";
+      translations = "(function(){return "+translations+";})();";
       if(!jshint(translations)){
         var checkfail = jshint.data().errors;
         var jsHintError = new Error("Sheet sintax error");

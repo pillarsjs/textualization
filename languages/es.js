@@ -1,4 +1,4 @@
-textualization = {
+({
   'languages': "Idiomas disponibles:".cyan+"{languages}".yellow,
   'load': {
     'loaded': "Nuevas traducciones disponibles: ".cyan+"'{id}'".yellow+", language: ".cyan+"{lang}".yellow,
@@ -7,4 +7,4 @@ textualization = {
   'translate': {
     'error': "Error i18n al tratar de traducir: ".red+"'{node}', {params}".yellow
   }
-};
+})

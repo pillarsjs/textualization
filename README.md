@@ -19,7 +19,7 @@ Los **nodos de traducción** estarán contenidos en las **hojas de traducción**
 **Ejemplo de hoja de traducción es.js**
 ```javascript
 // Los nodos de traducción son *hello*, *sum*, *inbox* y *func*.
-textualization={
+({
 	hello: "Hola {firstname} {lastname}!!",
 	sum: "El resultado de tu operación {operation} es {result}",
 	inbox: [
@@ -32,7 +32,7 @@ textualization={
 		return "El cuadrado de {param} es " + square;
 	}
 
-};
+});
 ```
 
 >Por otro lado se declara el **directorio de traducciones** para el módulo concreto mediante el método *i18n.load()*. En un directorio de traducciones existirá una hoja de traducción por cada idioma.
@@ -63,16 +63,16 @@ console.log(i18n("i18nSample.hello",user, "en"));
 
 **./language/es.js** - Hoja de traducción para el español
 ```javascript
-textualization={
+({
 	hello: "Hola {firstname} {lastname}!!"
-};
+})
 ```
 
 **./language/en.js** - Hoja de traducción para el inglés
 ```javascript
-textualization={
+({
 	hello: "Hi {firstname} {lastname}!!!"
-};
+})
 ```
 
 **Consola**
@@ -91,19 +91,19 @@ El caso de existir dos elementos en el Array, estamos hablando de **plural y sin
 
 **es.js**
 ```javascript
-textualization={
+({
 	inbox: [		
 		"Tienes un mensaje", 		// Singular
 		"Tienes {$num} mensajes"	// Plural
 		
 	]
-}
+})
 ```
 
 En el caso de más de dos elementos en el Array, se sigue la regla: 
 
 ```javascript
-textualization={
+({
 	nodo: [
 		"No hay elementos",	
 		"Un elemento",
@@ -113,7 +113,8 @@ textualization={
 		"n-2 elementos",
 		"n-1 elementos",
 		"n o más elementos"
-	],
+	]
+})
 ```
 > En el código JS se utiliza la variable reservada **$num** para indicar el numeral. 
  
@@ -130,24 +131,24 @@ console.log(i18n("i18nSample.inbox",{$num:0},"es"));
 
 **es.js**
 ```javascript
-textualization={
+({
 	inbox: [
 		"No tienes mensajes", 		// 0
 		"Tienes un solo mensaje",	// 1
 		"Tienes {$num} mensajes"	// >1
 	]
-};
+})
 ```
 
 **en.js**
 ```javascript
-textualization={
+({
 	inbox: [
 		"No messages",
 		"One message",
 		"You have {$num} messages"
 	]
-};
+})
 ```
 
 **Consola**
@@ -173,12 +174,12 @@ console.log(i18n("i18nSample.func",{param:5}));
 
 **es.js**
 ```javascript
-textualization={
+({
 	func:  function(){
 		var square = param * param;
 		return "El cuadrado de {param} es " + square;
 	}
-};
+})
 ```
 
 **Consola**
