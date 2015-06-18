@@ -150,11 +150,11 @@ describe("Textualization -----",function(){
         lastname: "Simpson"
       };
 
-      console.log(i18n.heap);
+      //console.log(i18n.heap);
 
       test
         .value(i18n("i18nSampleLoad.hello",user,"de"))
-          .is("i18nSampleLoad.hello")
+          .is("Hallo Homer Simpson")
     })
 
   })

@@ -1,3 +1,3 @@
-textualization={
-	hello: "Hallo {firstname} {lastname}"
-};
+({
+  hello: "Hallo {firstname} {lastname}"
+})
