@@ -4,14 +4,14 @@
 
 Easy internacionalization (aka i18n) manager for Node.js
 
-Textualization offers the possibility of not writing any user text message in your JS code. Will allow you to translate your code into any language without having to learn a complex methodology. Textualization in 5 minutes:
+Textualization offers the possibility of not writing any user text message in your JS code. Allows to translate your code into any language without having to learn a complex methodology. Textualization in 5 minutes:
 
 Usual way for writing without i18n support:
 ```javascript
-var message = "User "+username+" has been disconnected at " + time + ".";
+var message = "User " + username + " has been disconnected at " + time + ".";
 ```
 
-Usual way for programming with some i18n systems, something like:
+Usual way for programming with others i18n systems, something like:
 ```javascript
 var message = i18n.translate(
   "User %s has been disconnected at %s",
@@ -93,7 +93,7 @@ i18n.load('nameSpace', './languages');
 i18n.languages = ['en', 'es'];
 ```
 
-Textualization load from directory `./languages` only the defined `.languages`, and refresh translations if this property changes.
+Textualization load from directory `./languages` only `i18n.languages` defined, and refresh translations cache if this property changes.
 
 Additionally also supports .js files. In this case is possible to use functions in translations sheets.
 ```javascript
@@ -103,9 +103,14 @@ Additionally also supports .js files. In this case is possible to use functions 
   ...
 })
 ```
-> The brackets at the beginning and end of the statement are optionals. In some text editors will allow you to have a correct syntax highlighting.
+> The brackets at the beginning and end of the statement are optionals. In some text editors allows to have a correct syntax highlighting.
 
 
 Nothing more, that's all. Simple?
 
-This repository is part of the Pillars.js core libraries, any contribution or collaboration is well come. Contact Us!
+This repository is part of the [Pillars.js](https://github.com/bifuer/pillars) core libraries. Any contribution, collaboration, issues... is well come ;)
+
+contact Us!:
+- [Repository issues](https://github.com/bifuer/textualization/issues)
+- Twitter [@pillarsJs](http://twitter.com/PillarsJS)
+- Mail [javi(at)pillarsjs.com](mailto:javi@pillarsjs.com)
