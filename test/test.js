@@ -32,21 +32,21 @@ describe("Textualization -----",function(){
       i18n.load("i18nSample",{
           inbox: [
             "Tienes un mensaje",
-            "Tienes {$num} mensajes"
+            "Tienes {_num_} mensajes"
           ]      
         },"es");
 
       test
-        .value(i18n("i18nSample.inbox",{$num:0},"es"))
+        .value(i18n("i18nSample.inbox",{_num_:0},"es"))
           .isType("string")
           .is("Tienes 0 mensajes")
-        .value(i18n("i18nSample.inbox",{$num:8},"es"))
+        .value(i18n("i18nSample.inbox",{_num_:8},"es"))
           .isType("string")
           .is("Tienes 8 mensajes")
-        .value(i18n("i18nSample.inbox",{$num:14999},"es"))
+        .value(i18n("i18nSample.inbox",{_num_:14999},"es"))
           .isType("string")
           .is("Tienes 14999 mensajes")
-        .value(i18n("i18nSample.inbox",{$num:1},"es"))
+        .value(i18n("i18nSample.inbox",{_num_:1},"es"))
           .isType("string")
           .is("Tienes un mensaje")
 
@@ -62,33 +62,33 @@ describe("Textualization -----",function(){
               "Tres elementos",  
               "cuatro elementos",
               "cinco elementos",
-              "{$num} elementos"
+              "{_num_} elementos"
           ]     
         },"es");
 
       test
-        .value(i18n("i18nSample.nodo",{$num:0},"es"))
+        .value(i18n("i18nSample.nodo",{_num_:0},"es"))
           .isType("string")
           .is("No hay elementos")
-        .value(i18n("i18nSample.nodo",{$num:1},"es"))
+        .value(i18n("i18nSample.nodo",{_num_:1},"es"))
           .isType("string")
           .is("Un elemento")
-        .value(i18n("i18nSample.nodo",{$num:2},"es"))
+        .value(i18n("i18nSample.nodo",{_num_:2},"es"))
           .isType("string")
           .is("Dos elementos")
-        .value(i18n("i18nSample.nodo",{$num:3},"es"))
+        .value(i18n("i18nSample.nodo",{_num_:3},"es"))
           .isType("string")
           .is("Tres elementos")
-        .value(i18n("i18nSample.nodo",{$num:4},"es"))
+        .value(i18n("i18nSample.nodo",{_num_:4},"es"))
           .isType("string")
           .is("cuatro elementos")
-        .value(i18n("i18nSample.nodo",{$num:5},"es"))
+        .value(i18n("i18nSample.nodo",{_num_:5},"es"))
           .isType("string")
           .is("cinco elementos")
-        .value(i18n("i18nSample.nodo",{$num:6},"es"))
+        .value(i18n("i18nSample.nodo",{_num_:6},"es"))
           .isType("string")
           .is("6 elementos")
-        .value(i18n("i18nSample.nodo",{$num:7},"es"))
+        .value(i18n("i18nSample.nodo",{_num_:7},"es"))
           .isType("string")
           .is("7 elementos")
         .value(i18n("i18nSample.nodo",7,"es"))
