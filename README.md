@@ -4,14 +4,18 @@
 
 Easy internacionalization (aka i18n) manager for Node.js
 
-Textualization offers the possibility of not writing any user text message in your JS code. Allows to translate your code into any language without having to learn a complex methodology. Textualization in 5 minutes:
+Textualization offers the possibility of not writing any user text message in your JS code. Allows to translate your code into any language without having to learn a complex methodology.
 
-Usual way for writing without i18n support:
+---
+
+## Textualization in 5 minutes:
+
+### Usual way for writing without i18n support:
 ```javascript
 var message = "User " + username + " has been disconnected at " + time + ".";
 ```
 
-Usual way for programming with others i18n systems, something like:
+### Usual way for programming with others i18n systems, something like:
 ```javascript
 var message = i18n.translate(
   "User %s has been disconnected at %s",
@@ -28,7 +32,7 @@ And a translation sheet entry similar to:
 ...
 ```
 
-**Textualization** way:
+### **Textualization** way:
 ```javascript
 var message = i18n('user.messages.logOut',{user:user, time:time}));
 ```
@@ -47,7 +51,7 @@ And translate by JSON i18n sheets, with direct dot-notation reference {} or eval
 }
 ```
 
-More possible uses:
+More possible uses (See [String.format](https://github.com/bifuer/String.format)):
 ```
 ...:"The user ·{username.toUpperCase()}· has been logged out.",
 ...:"New properties ·{Object.keys(props).join(',')}· added!",
@@ -55,7 +59,7 @@ More possible uses:
 ```
 
 
-Easy numerals/plurals for every language:
+### Easy numerals/plurals for every language:
 
 ```javascript
 i18n('mail.inbox.status', 5);             // Short version
@@ -71,13 +75,13 @@ Translation entry as array of numeral options:
     ]
 ````
 
-And direct objects and arrays parsing as JSON.
+### And direct objects and arrays parsing as JSON.
 ```JSON
 "The Object {myObj} is loaded." ==> "The Object {a:'A',b:'B'} is loaded."
 "The Array {myArray} is loaded." ==> "The Array ['A','B','C'] is loaded."
 ```
 
-Along with a simple translation sheet load system:
+## Along with a simple translation sheet load system:
 ```
 // Hypothetical working directory
 myApp/
@@ -106,7 +110,9 @@ Additionally also supports .js files. In this case is possible to use functions 
 > The brackets at the beginning and end of the statement are optionals. In some text editors allows to have a correct syntax highlighting.
 
 
-Nothing more, that's all. Simple?
+## Nothing more, that's all. Simple?
+
+---
 
 This repository is part of the [Pillars.js](https://github.com/bifuer/pillars) core libraries. Any contribution, collaboration, issues... is well come ;)
 
@@ -114,3 +120,7 @@ contact Us!:
 - [Repository issues](https://github.com/bifuer/textualization/issues)
 - Twitter [@pillarsJs](http://twitter.com/PillarsJS)
 - Mail [javi(at)pillarsjs.com](mailto:javi@pillarsjs.com)
+
+## License
+MIT
+
