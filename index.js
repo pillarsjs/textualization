@@ -140,19 +140,19 @@ function translate(text,params,lang) {
       return match.format(params);
 
     } else if(Array.isArray(match)){ // Grammatical number translation
-      var num;
+      var _num_;
       if(typeof params!=="object"){
-        num = params;
-        params = {$num:num};
+        _num_ = params;
+        params = {_num_:_num_};
       } else {
-        num = params.$num;
+        _num_ = params._num_;
       }
 
-      if(num>=0){
+      if(_num_>=0){
         if(match.length==2){
-          return (num==1) ? match[0].format(params) : match[1].format(params) ;
+          return (_num_==1) ? match[0].format(params) : match[1].format(params) ;
         } else {
-          return (num>=match.length-1) ? match[match.length-1].format(params) : match[num].format(params) ;
+          return (_num_>=match.length-1) ? match[match.length-1].format(params) : match[_num_].format(params) ;
         }
       } else {
         throw new Error("Invalid params for gramatical number translation");
