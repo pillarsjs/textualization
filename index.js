@@ -65,13 +65,13 @@ function loadTranslationsPath(id,path,reload){
   for(var i=0,l=languages.length;i<l;i++){
     var lang = languages[i];
     if(!reload && heap[id] && heap[id][lang]){
-      break;
+      continue;
     }
     var translations;
     try {
       translations = fs.readFileSync(paths.join(path,lang+'.js'),{encoding:'utf8'});
     } catch (error) {
-      break;
+      continue;
     }
     
     try {
