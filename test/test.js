@@ -10,6 +10,9 @@ describe("Textualization -----",function(){
       i18n.load("i18nSample",{
         hello: "Hello {firstname} {lastname}"
       },"en");
+      i18n.load("i18nSample",{
+        hello: "Olá {firstname} {lastname}"
+      },"pt_BR");
 
       var user = {
         firstname: "Homer",
@@ -24,6 +27,10 @@ describe("Textualization -----",function(){
         .value(i18n("i18nSample.hello",user,"en"))
           .isType("string")
           .is("Hello Homer Simpson")
+        
+        .value(i18n("i18nSample.hello",user,"pt_BR"))
+          .isType("string")
+          .is("Olá Homer Simpson")
 
     })
 
@@ -155,6 +162,34 @@ describe("Textualization -----",function(){
       test
         .value(i18n("i18nSampleLoad.hello",user,"de"))
           .is("Hallo Homer Simpson")
+    })
+    
+    it("Load 4 languages",function(){     
+      i18n.load("i18nSampleLoad","./test/languages");
+      i18n.languages = ["es","en","de","pt_BR"];
+
+      var user = {
+        firstname: "Homer",
+        lastname: "Simpson"
+      };
+
+      test
+        .value(i18n("i18nSampleLoad.hello",user,"es"))
+          .isType("string")
+          .is("Hola Homer Simpson")
+
+        .value(i18n("i18nSampleLoad.hello",user,"en"))
+          .isType("string")
+          .is("Hi Homer Simpson")
+
+        .value(i18n("i18nSampleLoad.hello",user,"de"))
+          .isType("string")
+          .is("Hallo Homer Simpson")
+          
+        .value(i18n("i18nSampleLoad.hello",user,"pt_BR"))
+          .isType("string")
+          .is("Olá Homer Simpson")
+
     })
 
   })
