@@ -1,6 +1,6 @@
 # Textualization
 
-![license](https://img.shields.io/badge/license-MIT-blue.svg ) [![Build Status](https://img.shields.io/travis/bifuer/textualization/master.svg)](https://travis-ci.org/bifuer/textualization) [![npm version](https://img.shields.io/npm/v/textualization.svg)](https://www.npmjs.com/package/textualization) [![Github release](https://img.shields.io/github/release/bifuer/textualization.svg)](https://github.com/bifuer/textualization) [![npm downloads](https://img.shields.io/npm/dm/textualization.svg)](https://www.npmjs.com/package/textualization)
+![license](https://img.shields.io/badge/license-MIT-blue.svg ) [![Build Status](https://img.shields.io/travis/pillarsjs/textualization/master.svg)](https://travis-ci.org/pillarsjs/textualization) [![npm version](https://img.shields.io/npm/v/textualization.svg)](https://www.npmjs.com/package/textualization) [![Github release](https://img.shields.io/github/release/bifuer/textualization.svg)](https://github.com/pillarsjs/textualization) [![npm downloads](https://img.shields.io/npm/dm/textualization.svg)](https://www.npmjs.com/package/textualization)
 
 Very simple internationalization (aka i18n) manager for Node.js
 
@@ -51,7 +51,7 @@ And translate by JSON i18n sheets, with direct dot-notation reference {} or eval
 }
 ```
 
-More possible uses (See [String.format](https://github.com/bifuer/String.format)):
+More possible uses (See [String.format](https://github.com/pillarsjs/String.format)):
 ```
 ...:"The user ·{username.toUpperCase()}· has been logged out.",
 ...:"New properties ·{Object.keys(props).join(',')}· added!",
@@ -112,10 +112,10 @@ Additionally also supports .js files. In this case is possible to use functions 
 
 ## Nothing more, that's all. Simple?
 
-This repository is part of the [Pillars.js](https://github.com/bifuer/pillars) core libraries. Any contribution, collaboration, issues... is well come ;)
+This repository is part of the [Pillars.js](https://github.com/pillarsjs/pillars) core libraries. Any contribution, collaboration, issues... is well come ;)
 
 contact Us!:
-- [Repository issues](https://github.com/bifuer/textualization/issues)
+- [Repository issues](https://github.com/pillarsjs/textualization/issues)
 - Twitter [@pillarsJs](http://twitter.com/PillarsJS)
 - Mail [javi(at)pillarsjs.com](mailto:javi@pillarsjs.com)
 

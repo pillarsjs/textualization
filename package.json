@@ -12,13 +12,13 @@
       "email": "cheloq@gmail.com"
     }
   ],
-  "homepage": "https://github.com/bifuer/textualization",
+  "homepage": "https://github.com/pillarsjs/textualization",
   "repository": {
     "type": "git",
-    "url": "git://github.com/bifuer/textualization"
+    "url": "git://github.com/pillarsjs/textualization"
   },
   "bugs": {
-    "url": "https://github.com/bifuer/textualization/issues",
+    "url": "https://github.com/pillarsjs/textualization/issues",
     "email" : "cheloq@gmail.com"
   },
   "keywords": [
