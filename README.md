@@ -37,7 +37,7 @@ And a translation sheet entry similar to:
 var message = i18n('user.messages.logOut',{user:user, time:time}));
 ```
 
-And translate by JSON i18n sheets, with direct dot-notation reference {} or evaluated expressions ·{}·:
+And translate by JS/JSON i18n sheets, with direct dot-notation reference {} or evaluated expressions ·{}·:
 ```
 {
   user: {
@@ -86,10 +86,10 @@ Translation entry as array of numeral options:
 // Hypothetical working directory
 myApp/
      /languages/
-               /en.json
-               /es.json
-               /de.json
-               /ru.json
+               /en.js
+               /es.js
+               /de.js
+               /ru.js
 ```
 
 ```javascript
@@ -99,7 +99,7 @@ i18n.languages = ['en', 'es'];
 
 Textualization load from directory `./languages` only `i18n.languages` defined, and refresh translations cache if this property changes.
 
-Additionally also supports .js files. In this case is possible to use functions in translations sheets.
+Additionally is possible to use functions in translations sheets.
 ```javascript
 ({
   hello: "Hello {name}!",
