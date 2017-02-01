@@ -1,0 +1,46 @@
+{
+  "name": "textualizationexample",
+  "description": "A textualization example",
+  "version": "0.0.1",
+  "author": {
+    "name": "Chelo Quilón Gómez",
+    "email": "cheloq@gmail.com"
+  },
+  "homepage": "https://github.com/pillarsjs/textualization",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/pillarsjs/textualization"
+  },
+  "bugs": {
+    "url": "https://github.com/pillarsjs/textualization/issues",
+    "email" : "cheloq@gmail.com"
+  },
+  "keywords": [
+    "translation",
+    "localization",
+    "i18n",
+    "translate",
+    "language",
+    "multi language",
+    "node",
+    "js",
+    "javascript"
+  ],
+  "dependencies": {
+    "pillars": "*",
+    "textualization": "*",
+    "jshint": "*",
+    "string.format": "*",
+    "crier": "*"
+  },
+  "main": "./app.js",
+  "preferGlobal": false,
+  "files": [
+    "LICENSE",
+    "README.md",
+    "index.js",
+    "languages"
+  ],
+  "readmeFilename": "README.md",
+  "license": "MIT"
+}
