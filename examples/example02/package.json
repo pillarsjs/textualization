@@ -1,0 +1,9 @@
+{
+  "name": "example-i18n",
+  "description": "",
+  "version": "0.0.1",					
+  "dependencies": {
+    "pillars": "*"
+  },
+  "main": "./server.js"
+}
