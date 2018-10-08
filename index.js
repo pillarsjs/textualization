@@ -75,7 +75,15 @@ function loadTranslationsPath(id,path,reload){
     }
     
     try {
-      translations = "(function(){return "+translations+";})();";
+       // remove `"use strict";` at the beginning of the file (add generally by tanspiler like typescript) if present
+      if (/^\s*("use\sstrict");?/.test(translations)) {
+        translations = translations.replace(/^\s*"use\sstrict";?\s*/, '');
+      }
+      if (translations.trim().endsWith(";")) {
+        translations = "(function(){return " + translations + "})();";
+      } else {
+        translations = "(function(){return " + translations + ";})();";
+      }
       if(!jshint(translations)){
         var checkfail = jshint.data().errors;
         var jsHintError = new Error("Sheet sintax error");
