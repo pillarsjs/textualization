@@ -75,7 +75,11 @@ function loadTranslationsPath(id,path,reload){
     }
     
     try {
- 			if (translations.trim().endsWith(";")) {
+       // remove `"use strict";` at the beginning of the file (add generally by tanspiler like typescript) if present
+      if (/^\s*("use\sstrict");?/.test(translations)) {
+        translations = translations.replace(/^\s*"use\sstrict";?\s*/, '');
+      }
+      if (translations.trim().endsWith(";")) {
         translations = "(function(){return " + translations + "})();";
       } else {
         translations = "(function(){return " + translations + ";})();";
