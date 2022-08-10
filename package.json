@@ -3,8 +3,7 @@
   "description": "Dot notation based translate -> i18n('path.to.mi.text',{...params...},lang);",
   "version": "0.6.2",
   "author": {
-    "name": "Javier Gallego Martín",
-    "email": "bifuer@gmail.com"
+    "name": "Bifuer"
   },
   "contributors": [
     {
