@@ -1,5 +1,17 @@
 # Textualization
 
+## For reasons of time and advancement in technologies, especially JS, this project is no longer maintained.
+### Thank you for your support and interest in this project.
+
+We personally think this is a good example of simplifying JS code in Node for these purposes and hopefully we'll have enough time to come back to this idea or something similar.
+
+This project has favored great relationships and has provided a lot of learning for its participants
+
+See you later! <3
+
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+---
+
 ![license](https://img.shields.io/badge/license-MIT-blue.svg ) [![Build Status](https://img.shields.io/travis/pillarsjs/textualization/master.svg)](https://travis-ci.org/pillarsjs/textualization) [![npm version](https://img.shields.io/npm/v/textualization.svg)](https://www.npmjs.com/package/textualization) [![Github release](https://img.shields.io/github/release/bifuer/textualization.svg)](https://github.com/pillarsjs/textualization) [![npm downloads](https://img.shields.io/npm/dm/textualization.svg)](https://www.npmjs.com/package/textualization)
 
 Very simple internationalization (aka i18n) manager for Node.js
